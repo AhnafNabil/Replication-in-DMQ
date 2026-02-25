@@ -1,0 +1,12 @@
+{
+  "name": "producer",
+  "version": "1.0.0",
+  "description": "Message producer script",
+  "main": "producer.js",
+  "scripts": {
+    "start": "node producer.js"
+  },
+  "dependencies": {
+    "axios": "^1.6.0"
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "name": "consumer",
+  "version": "1.0.0",
+  "description": "Message consumer script",
+  "main": "consumer.js",
+  "scripts": {
+    "start": "node consumer.js"
+  },
+  "dependencies": {
+    "axios": "^1.6.0"
+  }
+}

@@ -1,0 +1,70 @@
+version: '3.8'
+
+services:
+
+  # ── Broker Nodes ─────────────────────────────────────────────────────────────
+  node-a:
+    build: ./broker
+    container_name: node_a
+    environment:
+      - NODE_ID=node-a
+    ports:
+      - "5001:5000"
+    networks:
+      - dmq-network
+    restart: unless-stopped
+
+  node-b:
+    build: ./broker
+    container_name: node_b
+    environment:
+      - NODE_ID=node-b
+    ports:
+      - "5002:5000"
+    networks:
+      - dmq-network
+    restart: unless-stopped
+
+  node-c:
+    build: ./broker
+    container_name: node_c
+    environment:
+      - NODE_ID=node-c
+    ports:
+      - "5003:5000"
+    networks:
+      - dmq-network
+    restart: unless-stopped
+
+  node-d:
+    build: ./broker
+    container_name: node_d
+    environment:
+      - NODE_ID=node-d
+    ports:
+      - "5004:5000"
+    networks:
+      - dmq-network
+    restart: unless-stopped
+
+  # ── Coordinator ───────────────────────────────────────────────────────────────
+  coordinator:
+    build: ./coordinator
+    container_name: coordinator
+    environment:
+      - BROKER_NODES=node-a=http://node-a:5000,node-b=http://node-b:5000,node-c=http://node-c:5000,node-d=http://node-d:5000
+      - REPLICATION_FACTOR=3
+    ports:
+      - "7000:7000"
+    depends_on:
+      - node-a
+      - node-b
+      - node-c
+      - node-d
+    networks:
+      - dmq-network
+    restart: unless-stopped
+
+networks:
+  dmq-network:
+    driver: bridge
