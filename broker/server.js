@@ -58,7 +58,7 @@ app.post('/store', async (req, res) => {
     node: NODE_ID,
     role: 'primary',
     key,
-    replicatedTo,
+    replicatedTo: replicateTo,
     replicationResults,
   });
 });
